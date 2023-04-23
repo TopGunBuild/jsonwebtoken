@@ -114,7 +114,7 @@ const options_for_objects = [
 export async function sign(
     payload: string|JwtPayload,
     secretOrPrivateKey: Secret,
-    callback: SignCallback,
+    callback: SignOptions|SignCallback,
 ): Promise<string>;
 export async function sign(
     payload: string|JwtPayload,
@@ -139,10 +139,12 @@ export async function sign(
         options = options || {};
     }
 
+    options = { algorithm: 'HS256', ...options };
+
     const isObjectPayload = typeof payload === 'object';
 
     const header = Object.assign({
-        alg: options.algorithm || 'HS256',
+        alg: options.algorithm,
         typ: isObjectPayload ? 'JWT' : undefined
     }, options.header);
 

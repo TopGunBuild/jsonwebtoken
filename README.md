@@ -1,5 +1,5 @@
 <h1 align="center" style="border-bottom: none;">🔑 topgun-jsonwebtoken</h1>
-<h3 align="center">An isomorphic JSON Web Token implementation (symmetric and asymmetric) for <a href="https://github.com/TopGunBuild/topgun">TopGun</a></h3>
+<h3 align="center">An isomorphic JSON Web Token implementation for <a href="https://github.com/TopGunBuild/topgun">TopGun</a></h3>
 
 <p align="center">
   <a href="https://github.com/semantic-release/semantic-release">

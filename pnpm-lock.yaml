@@ -4,9 +4,6 @@ dependencies:
   ms:
     specifier: ^2.1.1
     version: 2.1.2
-  topgun-buffer:
-    specifier: ^1.0.3
-    version: 1.0.3
   topgun-webcrypto:
     specifier: ^1.0.5
     version: 1.0.5
@@ -5472,10 +5469,6 @@ packages:
     dependencies:
       is-number: 7.0.0
     dev: true
-
-  /topgun-buffer@1.0.3:
-    resolution: {integrity: sha512-Upuzkv7kj23Q3JtZKLSAWGEFkrsmKn+7ZZnOqBjdblb0lkZBW4S3+nttdL37hJnTh7NTJ4Giz6A+qw3SDRW1Ag==}
-    dev: false
 
   /topgun-webcrypto@1.0.5:
     resolution: {integrity: sha512-OyFjBRKvr3Sg0MQNeTc8nzA4NsPNZGSPZKAeJH19hZsYO22YwOeQS2xpNS9jk+rsxymXrPEMMpWo2qPmdyNHJg==}

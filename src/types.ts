@@ -1,13 +1,3 @@
-import { TokenExpiredError } from './errors/token-expired-error';
-import { NotBeforeError } from './errors/not-before-error';
-import { JsonWebTokenError } from './errors/json-web-token-error';
-
-export interface DecodeOptions
-{
-    complete?: boolean|undefined;
-    json?: boolean|undefined;
-}
-
 export interface SignOptions
 {
     /**
@@ -49,40 +39,14 @@ export interface JwtVerifyOptions
     throwError?: boolean;
 }
 
-/*export interface VerifyOptions
+export interface JwtData
 {
-    algorithms?: JwtAlgorithm[]|undefined;
-    audience?: string|RegExp|Array<string|RegExp>|undefined;
-    clockTimestamp?: number|undefined;
-    clockTolerance?: number|undefined;
-    /!** return an object with the decoded `{ payload, header, signature }` instead of only the usual content of the payload. *!/
-    complete?: boolean|undefined;
-    issuer?: string|string[]|undefined;
-    ignoreExpiration?: boolean|undefined;
-    ignoreNotBefore?: boolean|undefined;
-    jwtid?: string|undefined;
-    /!**
-     * If you want to check `nonce` claim, provide a string value here.
-     * It is used on Open ID for the ID Tokens. ([Open ID implementation notes](https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes))
-     *!/
-    nonce?: string|undefined;
-    subject?: string|undefined;
-    maxAge?: string|number|undefined;
-    allowInvalidAsymmetricKeyTypes?: boolean|undefined;
-}*/
-
-export interface DecodeOptions
-{
-    complete?: boolean|undefined;
-    json?: boolean|undefined;
+    header: JwtHeader;
+    payload: JwtPayload;
 }
 
-export type VerifyErrors =
-    |JsonWebTokenError
-    |NotBeforeError
-    |TokenExpiredError;
-export type VerifyCallback<T = Jwt|JwtPayload|string> = (
-    error: VerifyErrors|null,
+export type VerifyCallback<T = JwtPayload|string> = (
+    error: Error|null,
     decoded: T|undefined,
 ) => void;
 
@@ -118,13 +82,6 @@ export interface JwtPayload
     nbf?: number|undefined;
     iat?: number|undefined;
     jti?: string|undefined;
-}
-
-export interface Jwt
-{
-    header: JwtHeader;
-    payload: JwtPayload|string;
-    signature: string;
 }
 
 // https://github.com/auth0/node-jsonwebtoken#algorithms-supported

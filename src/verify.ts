@@ -4,7 +4,6 @@ import { utf8ToUint8Array } from './utils/utf8-to-uint8array';
 import { str2ab } from './utils/str2ab';
 import { decode } from './decode';
 import {
-    Jwt,
     JwtAlgorithm,
     JwtPayload,
     JwtVerifyOptions,
@@ -23,7 +22,7 @@ export async function verify(
         algorithm : 'HS256',
         throwError: false,
     },
-    callback?: VerifyCallback<Jwt>
+    callback?: VerifyCallback<JwtPayload|false>
 ): Promise<JwtPayload|false>
 {
     if (typeof options === 'string')
@@ -33,33 +32,42 @@ export async function verify(
 
     options = { algorithm: 'HS256', throwError: false, ...options };
 
+    function failure(err)
+    {
+        if (callback)
+        {
+            return callback(null, err);
+        }
+        throw err;
+    }
+
     if (typeof token !== 'string')
     {
-        throw new Error('AuthTokenInvalidError');
+        failure(new Error('AuthTokenInvalidError'));
     }
 
     if (typeof secret !== 'string' && typeof secret !== 'object')
     {
-        throw new Error('secret must be a string or a JWK object');
+        failure(new Error('secret must be a string or a JWK object'));
     }
 
     if (typeof options.algorithm !== 'string')
     {
-        throw new Error('options.algorithm must be a string');
+        failure(new Error('options.algorithm must be a string'));
     }
 
     const tokenParts = token.split('.');
 
     if (tokenParts.length !== 3)
     {
-        throw new Error('token must consist of 3 parts');
+        failure(new Error('token must consist of 3 parts'));
     }
 
     const algorithm: SubtleCryptoImportKeyAlgorithm = algorithms[options.algorithm];
 
     if (!algorithm)
     {
-        throw new Error('algorithm not found');
+        failure(new Error('algorithm not found'));
     }
 
     const { payload } = decode(token);
@@ -68,7 +76,7 @@ export async function verify(
     {
         if (options.throwError)
         {
-            throw new AuthTokenError('ParseError');
+            failure(new Error('ParseError'));
         }
 
         return false;
@@ -78,7 +86,7 @@ export async function verify(
     {
         if (options.throwError)
         {
-            throw new AuthTokenError('NotYetValid');
+            failure(new Error('NotYetValid'));
         }
 
         return false;
@@ -88,7 +96,7 @@ export async function verify(
     {
         if (options.throwError)
         {
-            throw new AuthTokenError('TokenExpiredError');
+            failure(new Error('TokenExpiredError'));
         }
 
         return false;
@@ -124,10 +132,17 @@ export async function verify(
         ['verify']
     );
 
-    return (await crypto.subtle.verify(
+    const result = (await crypto.subtle.verify(
         algorithm,
         key,
         base64UrlParse(tokenParts[2]),
         utf8ToUint8Array(`${tokenParts[0]}.${tokenParts[1]}`)
     )) ? payload : false;
+
+    if (typeof callback === 'function')
+    {
+        callback(null, result);
+    }
+
+    return result;
 }

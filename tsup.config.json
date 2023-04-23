@@ -1,5 +1,5 @@
 {
-    "globalName": "TopGunBuffer",
+    "globalName": "TopGunJWT",
     "splitting": true,
     "sourcemap": false,
     "clean": true,
@@ -12,8 +12,7 @@
     "minify": true,
     "bundle": true,
     "skipNodeModulesBundle": true,
-    "entry": {
-        "browser": "src/browser.ts",
-        "node": "src/node.ts"
-    }
+    "entry": [
+        "src/index.ts"
+    ]
 }
