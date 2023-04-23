@@ -23,7 +23,7 @@ export interface SignOptions
      * - ES512:    ECDSA using P-521 curve and SHA-512 hash algorithm
      * - none:     No digital signature or MAC value included
      */
-    algorithm?: Algorithm|undefined;
+    algorithm?: JwtAlgorithm|undefined;
     keyid?: string|undefined;
     /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
     expiresIn?: string|number|undefined;
@@ -36,32 +36,40 @@ export interface SignOptions
     mutatePayload?: boolean|undefined;
     noTimestamp?: boolean|undefined;
     header?: JwtHeader|undefined;
-    encoding?: string|undefined;
-    allowInsecureKeySizes?: boolean|undefined;
-    allowInvalidAsymmetricKeyTypes?: boolean|undefined;
 }
 
-export interface VerifyOptions
+export interface JwtVerifyOptions
 {
-    algorithms?: Algorithm[]|undefined;
+    algorithm?: JwtAlgorithm|string;
+    /**
+     * If `true` throw error if checks fail. (default: `false`)
+     *
+     * @default false
+     */
+    throwError?: boolean;
+}
+
+/*export interface VerifyOptions
+{
+    algorithms?: JwtAlgorithm[]|undefined;
     audience?: string|RegExp|Array<string|RegExp>|undefined;
     clockTimestamp?: number|undefined;
     clockTolerance?: number|undefined;
-    /** return an object with the decoded `{ payload, header, signature }` instead of only the usual content of the payload. */
+    /!** return an object with the decoded `{ payload, header, signature }` instead of only the usual content of the payload. *!/
     complete?: boolean|undefined;
     issuer?: string|string[]|undefined;
     ignoreExpiration?: boolean|undefined;
     ignoreNotBefore?: boolean|undefined;
     jwtid?: string|undefined;
-    /**
+    /!**
      * If you want to check `nonce` claim, provide a string value here.
      * It is used on Open ID for the ID Tokens. ([Open ID implementation notes](https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes))
-     */
+     *!/
     nonce?: string|undefined;
     subject?: string|undefined;
     maxAge?: string|number|undefined;
     allowInvalidAsymmetricKeyTypes?: boolean|undefined;
-}
+}*/
 
 export interface DecodeOptions
 {
@@ -86,7 +94,7 @@ export type SignCallback = (
 // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
 export interface JwtHeader
 {
-    alg: string|Algorithm;
+    alg: string|JwtAlgorithm;
     typ?: string|undefined;
     cty?: string|undefined;
     crit?: Array<string|Exclude<keyof JwtHeader, 'crit'>>|undefined;
@@ -120,7 +128,7 @@ export interface Jwt
 }
 
 // https://github.com/auth0/node-jsonwebtoken#algorithms-supported
-export type Algorithm =
+export type JwtAlgorithm =
     'HS256'|'HS384'|'HS512'|
     'RS256'|'RS384'|'RS512'|
     'ES256'|'ES384'|'ES512'|
@@ -142,3 +150,25 @@ export type Secret =
     |Buffer
     // |KeyObject
     |{key: string|Buffer; passphrase: string};
+
+export interface SubtleCryptoImportKeyAlgorithm
+{
+    name: string;
+    hash: string|SubtleCryptoHashAlgorithm;
+    length?: number;
+    namedCurve?: string;
+    compressed?: boolean;
+}
+
+interface SubtleCryptoHashAlgorithm
+{
+    name: string;
+}
+
+/**
+ * @typedef JwtAlgorithms
+ */
+export interface JwtAlgorithms
+{
+    [key: string]: SubtleCryptoImportKeyAlgorithm;
+}

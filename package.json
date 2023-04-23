@@ -46,7 +46,8 @@
     "homepage": "https://github.com/TopGunBuild/topgun-jsonwebtoken#readme",
     "dependencies": {
         "ms": "^2.1.1",
-        "topgun-buffer": "^1.0.3"
+        "topgun-buffer": "^1.0.3",
+        "topgun-webcrypto": "^1.0.5"
     },
     "devDependencies": {
         "@semantic-release/changelog": "^6.0.3",
