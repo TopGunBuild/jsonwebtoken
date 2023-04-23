@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/TopGunBuild/topgun-jsonwebtoken/compare/v1.0.1...v1.0.2) (2023-04-23)
+
+
+### Bug Fixes
+
+* update JwtSecret type ([51bc10f](https://github.com/TopGunBuild/topgun-jsonwebtoken/commit/51bc10f532611898e21c3d29675ed7ab8daf8e04))
+
 ## [1.0.1](https://github.com/TopGunBuild/topgun-jsonwebtoken/compare/v1.0.0...v1.0.1) (2023-04-23)
 
 
