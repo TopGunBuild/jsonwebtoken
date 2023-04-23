@@ -3,7 +3,7 @@ import { isString } from './utils/is-string';
 import { isNumber } from './utils/is-number';
 import { isBoolean } from './utils/is-boolean';
 import { isPlainObject } from './utils/is-plain-object';
-import { JwtPayload, Secret, SignCallback, SignOptions, SubtleCryptoImportKeyAlgorithm } from './types';
+import { JwtPayload, JwtSecret, JwtSignCallback, JwtSignOptions, SubtleCryptoImportKeyAlgorithm } from './types';
 import { timespan } from './utils/timespan';
 import { base64UrlStringify } from './utils/base64-url-stringify';
 import { utf8ToUint8Array } from './utils/utf8-to-uint8array';
@@ -113,20 +113,20 @@ const options_for_objects = [
  */
 export async function sign(
     payload: string|JwtPayload,
-    secretOrPrivateKey: Secret,
-    callback: SignOptions|SignCallback,
+    secretOrPrivateKey: JwtSecret,
+    callback: JwtSignOptions|JwtSignCallback,
 ): Promise<string>;
 export async function sign(
     payload: string|JwtPayload,
-    secretOrPrivateKey: Secret,
-    options: SignOptions,
-    callback: SignCallback,
+    secretOrPrivateKey: JwtSecret,
+    options: JwtSignOptions,
+    callback: JwtSignCallback,
 ): Promise<string>;
 export async function sign(
     payload: string|JwtPayload,
-    secretOrPrivateKey: Secret,
-    options: SignOptions|SignCallback,
-    callback?: SignCallback,
+    secretOrPrivateKey: JwtSecret,
+    options: JwtSignOptions|JwtSignCallback,
+    callback?: JwtSignCallback,
 ): Promise<string>
 {
     if (typeof options === 'function')

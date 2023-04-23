@@ -8,7 +8,7 @@ import {
     JwtPayload,
     JwtVerifyOptions,
     SubtleCryptoImportKeyAlgorithm,
-    VerifyCallback
+    JwtVerifyCallback
 } from './types';
 import { algorithms } from './utils/algorithms';
 
@@ -22,7 +22,7 @@ export async function verify(
         algorithm : 'HS256',
         throwError: false,
     },
-    callback?: VerifyCallback<JwtPayload|false>
+    callback?: JwtVerifyCallback<JwtPayload|false>
 ): Promise<JwtPayload|false>
 {
     if (typeof options === 'string')

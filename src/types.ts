@@ -1,4 +1,4 @@
-export interface SignOptions
+export interface JwtSignOptions
 {
     /**
      * Signature algorithm. Could be one of these values :
@@ -45,12 +45,12 @@ export interface JwtData
     payload: JwtPayload;
 }
 
-export type VerifyCallback<T = JwtPayload|string> = (
+export type JwtVerifyCallback<T = JwtPayload|string> = (
     error: Error|null,
     decoded: T|undefined,
 ) => void;
 
-export type SignCallback = (
+export type JwtSignCallback = (
     error: Error|null,
     encoded?: string|undefined,
 ) => void;
@@ -92,17 +92,7 @@ export type JwtAlgorithm =
     'PS256'|'PS384'|'PS512'|
     'none';
 
-export type SigningKeyCallback = (
-    error: Error|null,
-    signingKey?: Secret
-) => void;
-
-export type GetPublicKeyOrSecret = (
-    header: JwtHeader,
-    callback: SigningKeyCallback
-) => void;
-
-export type Secret =
+export type JwtSecret =
     |string
     |Buffer
     // |KeyObject
