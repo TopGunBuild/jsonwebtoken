@@ -92,11 +92,7 @@ export type JwtAlgorithm =
     'PS256'|'PS384'|'PS512'|
     'none';
 
-export type JwtSecret =
-    |string
-    |Buffer
-    // |KeyObject
-    |{key: string|Buffer; passphrase: string};
+export type JwtSecret = string|JsonWebKey;
 
 export interface SubtleCryptoImportKeyAlgorithm
 {
