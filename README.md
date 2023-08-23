@@ -15,7 +15,9 @@
 
 ## Install
 
-`npm install @topgunbuild/jsonwebtoken`
+```bash
+npm install @topgunbuild/jsonwebtoken
+```
 
 ## License
 
