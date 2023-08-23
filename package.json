@@ -21,7 +21,8 @@
         "format": "prettier --write \"src/**/*.ts\"",
         "lint": "eslint \"src/**/*.ts\" --fix",
         "prepare": "simple-git-hooks",
-        "semantic-release": "semantic-release"
+        "release": "release-it",
+        "tarball": "rimraf tar && pnpm pack --pack-destination ./tar"
     },
     "repository": {
         "type": "git",
