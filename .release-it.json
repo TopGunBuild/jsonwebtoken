@@ -26,11 +26,5 @@
         "before:init": ["git pull", "pnpm lint", "pnpm test"],
         "after:bump": "pnpm build && pnpm tarball",
         "after:release": "echo Successfully created a release v${version} for ${repo.repository}."
-    },
-    "plugins": {
-        "@release-it/conventional-changelog": {
-            "preset": "angular",
-            "infile": "CHANGELOG.md"
-        }
     }
 }
