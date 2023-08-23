@@ -1,4 +1,4 @@
-export interface SignOptions
+export interface JwtSignOptions
 {
     /**
      * Signature algorithm. Could be one of these values :
@@ -45,12 +45,12 @@ export interface JwtData
     payload: JwtPayload;
 }
 
-export type VerifyCallback<T = JwtPayload|string> = (
+export type JwtVerifyCallback<T = JwtPayload|string> = (
     error: Error|null,
     decoded: T|undefined,
 ) => void;
 
-export type SignCallback = (
+export type JwtSignCallback = (
     error: Error|null,
     encoded?: string|undefined,
 ) => void;
@@ -92,32 +92,32 @@ export type JwtAlgorithm =
     'PS256'|'PS384'|'PS512'|
     'none';
 
-export type SigningKeyCallback = (
+export type JwtSigningKeyCallback = (
     error: Error|null,
-    signingKey?: Secret
+    signingKey?: JwtSecret
 ) => void;
 
 export type GetPublicKeyOrSecret = (
     header: JwtHeader,
-    callback: SigningKeyCallback
+    callback: JwtSigningKeyCallback
 ) => void;
 
-export type Secret =
+export type JwtSecret =
     |string
     |Buffer
     // |KeyObject
     |{key: string|Buffer; passphrase: string};
 
-export interface SubtleCryptoImportKeyAlgorithm
+export interface JwtSubtleCryptoImportKeyAlgorithm
 {
     name: string;
-    hash: string|SubtleCryptoHashAlgorithm;
+    hash: string|JwtSubtleCryptoHashAlgorithm;
     length?: number;
     namedCurve?: string;
     compressed?: boolean;
 }
 
-interface SubtleCryptoHashAlgorithm
+interface JwtSubtleCryptoHashAlgorithm
 {
     name: string;
 }
@@ -127,5 +127,5 @@ interface SubtleCryptoHashAlgorithm
  */
 export interface JwtAlgorithms
 {
-    [key: string]: SubtleCryptoImportKeyAlgorithm;
+    [key: string]: JwtSubtleCryptoImportKeyAlgorithm;
 }
