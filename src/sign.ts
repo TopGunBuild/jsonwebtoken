@@ -3,7 +3,7 @@ import { isString } from './utils/is-string';
 import { isNumber } from './utils/is-number';
 import { isBoolean } from './utils/is-boolean';
 import { isPlainObject } from './utils/is-plain-object';
-import { JwtPayload, JwtSecret, JwtSignCallback, JwtSignOptions, SubtleCryptoImportKeyAlgorithm } from './types';
+import { JwtPayload, JwtSecret, JwtSignCallback, JwtSignOptions, JwtSubtleCryptoImportKeyAlgorithm } from './types';
 import { timespan } from './utils/timespan';
 import { base64UrlStringify } from './utils/base64-url-stringify';
 import { utf8ToUint8Array } from './utils/utf8-to-uint8array';
@@ -299,7 +299,7 @@ export async function sign(
         keyData = utf8ToUint8Array(secretOrPrivateKey);
     }
 
-    const algorithm: SubtleCryptoImportKeyAlgorithm = algorithms[options.algorithm];
+    const algorithm: JwtSubtleCryptoImportKeyAlgorithm = algorithms[options.algorithm];
 
     if (!algorithm)
     {

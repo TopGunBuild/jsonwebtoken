@@ -7,8 +7,8 @@ import {
     JwtAlgorithm,
     JwtPayload,
     JwtVerifyOptions,
-    SubtleCryptoImportKeyAlgorithm,
-    JwtVerifyCallback, JwtSecret
+    JwtSubtleCryptoImportKeyAlgorithm,
+    JwtVerifyCallback
 } from './types';
 import { algorithms } from './utils/algorithms';
 
@@ -17,7 +17,7 @@ import { algorithms } from './utils/algorithms';
  */
 export async function verify(
     token: string,
-    secret: JwtSecret,
+    secret: string|JsonWebKey,
     options: JwtVerifyOptions|JwtAlgorithm = {
         algorithm : 'HS256',
         throwError: false,
@@ -63,7 +63,7 @@ export async function verify(
         failure(new Error('token must consist of 3 parts'));
     }
 
-    const algorithm: SubtleCryptoImportKeyAlgorithm = algorithms[options.algorithm];
+    const algorithm: JwtSubtleCryptoImportKeyAlgorithm = algorithms[options.algorithm];
 
     if (!algorithm)
     {

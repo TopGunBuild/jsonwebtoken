@@ -92,18 +92,32 @@ export type JwtAlgorithm =
     'PS256'|'PS384'|'PS512'|
     'none';
 
-export type JwtSecret = string|JsonWebKey;
+export type JwtSigningKeyCallback = (
+    error: Error|null,
+    signingKey?: JwtSecret
+) => void;
 
-export interface SubtleCryptoImportKeyAlgorithm
+export type GetPublicKeyOrSecret = (
+    header: JwtHeader,
+    callback: JwtSigningKeyCallback
+) => void;
+
+export type JwtSecret =
+    |string
+    |Buffer
+    // |KeyObject
+    |{key: string|Buffer; passphrase: string};
+
+export interface JwtSubtleCryptoImportKeyAlgorithm
 {
     name: string;
-    hash: string|SubtleCryptoHashAlgorithm;
+    hash: string|JwtSubtleCryptoHashAlgorithm;
     length?: number;
     namedCurve?: string;
     compressed?: boolean;
 }
 
-interface SubtleCryptoHashAlgorithm
+interface JwtSubtleCryptoHashAlgorithm
 {
     name: string;
 }
@@ -113,5 +127,5 @@ interface SubtleCryptoHashAlgorithm
  */
 export interface JwtAlgorithms
 {
-    [key: string]: SubtleCryptoImportKeyAlgorithm;
+    [key: string]: JwtSubtleCryptoImportKeyAlgorithm;
 }
