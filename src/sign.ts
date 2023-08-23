@@ -1,4 +1,4 @@
-import crypto from 'topgun-webcrypto';
+import crypto from '@topgunbuild/webcrypto';
 import { isString } from './utils/is-string';
 import { isNumber } from './utils/is-number';
 import { isBoolean } from './utils/is-boolean';
