@@ -8,7 +8,7 @@ import {
     JwtPayload,
     JwtVerifyOptions,
     JwtSubtleCryptoImportKeyAlgorithm,
-    JwtVerifyCallback
+    JwtVerifyCallback, JwtSecret
 } from './types';
 import { algorithms } from './utils/algorithms';
 
@@ -17,7 +17,7 @@ import { algorithms } from './utils/algorithms';
  */
 export async function verify(
     token: string,
-    secret: string|JsonWebKey,
+    secret: JwtSecret,
     options: JwtVerifyOptions|JwtAlgorithm = {
         algorithm : 'HS256',
         throwError: false,
