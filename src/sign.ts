@@ -1,4 +1,4 @@
-import crypto from 'topgun-webcrypto';
+import crypto from '@topgunbuild/webcrypto';
 import { isString } from './utils/is-string';
 import { isNumber } from './utils/is-number';
 import { isBoolean } from './utils/is-boolean';
@@ -14,25 +14,25 @@ const SUPPORTED_ALGS = ['ES256', 'ES384', 'ES512', 'HS256', 'HS384', 'HS512', 'R
 
 const sign_options_schema = {
     expiresIn                     : {
-        isValid   : value =>
+        isValid   : (value) =>
         {
             return isNumber(value) || (isString(value) && value);
         }, message: '"expiresIn" should be a number of seconds or string representing a timespan'
     },
     notBefore                     : {
-        isValid   : value =>
+        isValid   : (value) =>
         {
             return isNumber(value) || (isString(value) && value);
         }, message: '"notBefore" should be a number of seconds or string representing a timespan'
     },
     audience                      : {
-        isValid   : value =>
+        isValid   : (value) =>
         {
             return isString(value) || Array.isArray(value);
         }, message: '"audience" must be a string or array'
     },
     algorithm                     : {
-        isValid   : value =>
+        isValid   : (value) =>
         {
             return SUPPORTED_ALGS.includes(value)
         }, message: '"algorithm" must be a valid string enum value'

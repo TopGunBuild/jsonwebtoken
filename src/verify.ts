@@ -1,4 +1,4 @@
-import crypto from 'topgun-webcrypto';
+import crypto from '@topgunbuild/webcrypto';
 import { base64UrlParse } from './utils/base64-url-parse';
 import { utf8ToUint8Array } from './utils/utf8-to-uint8array';
 import { str2ab } from './utils/str2ab';
