@@ -1,6 +1,6 @@
 {
     "name": "@topgunbuild/jsonwebtoken",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "An isomorphic JSON Web Token implementation",
     "publishConfig": {
         "access": "public"
